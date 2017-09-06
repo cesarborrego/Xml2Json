@@ -63,14 +63,16 @@ public class NistXmlParser {
     public static final String nistQualityMeasure = "biom:NISTQualityMeasure";
     public static final String fingerprintImageAcquisitioneProfileCode = "biom:FingerprintImageAcquisitionProfileCode";
     public static final String FingerprintImageFingerMissing = "biom:FingerprintImageFingerMissing";
+    public static final String DatosAdicionalesHuellas = "itl:DatosAdicionalesHuellas";
     public static final String fingerMissingCode = "biom:FingerMissingCode";
+    public static final String motivoSinHuella = "prc:motivoSinHuella";
     public static final String DatosAdicionalesHuella = "itl:DatosAdicionalesHuella";
     public static final String tipoPersona = "prc:tipoPersona";
 
     public static final String PackageDescriptiveTextRecord = "itl:PackageDescriptiveTextRecord";
-    public static final String DatosEnrolTrabajador = "itl:DatosEnrolTrabajador";
-    public static final String curpTrabajador = "prc:curpTrabajador";
+    public static final String DatosEnrolTrabajador = "itl:DatosEnrolEmpleado";
     public static final String curpEmpleado = "prc:curpEmpleado";
+    public static final String curpEnrolador = "prc:curpEnrolador";
     public static final String fechaFirma = "prc:fechaFirma";
     public static final String recordCategoryCode = "biom:RecordCategoryCode";
     private static final String ENROLL_AFORE = "564";
@@ -99,11 +101,13 @@ public class NistXmlParser {
             //Modulo
             json.put(MODULE, MODULE_RT);
             //curp_enrolado
-            json.put(ENRROLLED_CURP, xml.optJSONObject(NISTBiometricInformation).optJSONObject(PackageDescriptiveTextRecord).optJSONObject(DatosEnrolTrabajador).optString(curpTrabajador));
+            json.put(ENRROLLED_CURP, xml.optJSONObject(NISTBiometricInformation).optJSONObject(PackageDescriptiveTextRecord).optJSONObject(DatosEnrolTrabajador).optString(curpEmpleado));
             //curp_enrolador
-            json.put(ENRROLLER_CURP, xml.optJSONObject(NISTBiometricInformation).optJSONObject(PackageDescriptiveTextRecord).optJSONObject(DatosEnrolTrabajador).optString(curpEmpleado));
+            json.put(ENRROLLER_CURP, xml.optJSONObject(NISTBiometricInformation).optJSONObject(PackageDescriptiveTextRecord).optJSONObject(DatosEnrolTrabajador).optString(curpEnrolador));
             //fecha_firma
-            json.put(SIGNATURE_DATE, xml.optJSONObject(NISTBiometricInformation).optJSONObject(PackageDescriptiveTextRecord).optJSONObject(DatosEnrolTrabajador).optString(fechaFirma));
+            //json.put(SIGNATURE_DATE, xml.optJSONObject(NISTBiometricInformation).optJSONObject(PackageDescriptiveTextRecord).optJSONObject(DatosEnrolTrabajador).optString(fechaFirma));
+            //Cambio para rh, no existe este campo en el nist de rh, por lo que se manda como delivery_date
+            json.put(SIGNATURE_DATE, "2017-07-20T10:11:00.528-05:00");
             //DeliveryDate
             json.put(DELIVERY_DATE, "2017-07-20T10:11:00.528-05:00");
             //KeyEnrollAfore
@@ -233,7 +237,9 @@ public class NistXmlParser {
                         imageScaleUnitsCodeStr.append("|");
                     }
 
-                    fingerprintStr.append("");
+                    //Si no hay huella se manda el motivo
+                    JSONObject fingerprintMotivoSinHuellaObj = fingerObject.getJSONObject(DatosAdicionalesHuella);
+                    fingerprintStr.append(fingerprintMotivoSinHuellaObj.getString(motivoSinHuella));
                     if (i < fingers.length() - 1) {
                         fingerprintStr.append("|");
                     }

@@ -46,8 +46,8 @@ public class json {
     public static final String PackageDescriptiveTextRecord = "itl:PackageDescriptiveTextRecord";
     public static final String DatosEnrolTrabajador = "itl:DatosEnrolTrabajador";
 
-    public static final String curpTrabajador = "prc:curpTrabajador";
-    public static final String curpEmpleado = "prc:curpEmpleado";
+    public static final String curpTrabajador = "prc:curpEnrolador";
+    public static final String curpEmpleado = "prc:curpEnrolador";
     public static final String fechaFirma = "prc:fechaFirma";
 
 
