@@ -13,7 +13,8 @@ public class Main {
         //System.out.println(xmlToJson("/Users/cesar/Metlife/Nist de ejemplo/CAFG700909MMCLLR30.xml"));
         //System.out.println(xmlToJson("/Users/cesar/Metlife/Nist de ejemplo/CAFZ700909MMCLLR10.xml"));
         //System.out.println(xmlToJson("/Users/cesar/Metlife/Nist de ejemplo/TIOE830525MHGRRD01.xml"));
-        System.out.println(xmlToJson("/Users/cesar/Metlife/Nist de ejemplo/BOHB751124MMCSRL06.xml"));
+        System.out.println(xmlToJson("/Users/cesar/Metlife/Nist de ejemplo/pruebas_edgar_13092017/VEOJ900521HHGLRS06[2].xml"));
+        //System.out.println(xmlToJson("/Users/cesar/Metlife/Nist de ejemplo/pruebas_edgar_13092017/GAEA750801MJCRSN02[1].xml"));
     }
 
     public static JSONObject xmlToJson(String path){

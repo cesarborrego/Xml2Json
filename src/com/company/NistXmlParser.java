@@ -239,7 +239,8 @@ public class NistXmlParser {
 
                     //Si no hay huella se manda el motivo
                     JSONObject fingerprintMotivoSinHuellaObj = fingerObject.getJSONObject(DatosAdicionalesHuella);
-                    fingerprintStr.append(fingerprintMotivoSinHuellaObj.getString(motivoSinHuella));
+                    //fingerprintStr.append(fingerprintMotivoSinHuellaObj.get(motivoSinHuella));
+                    fingerprintStr.append(concatenaMotivoSinHuella(fingerprintMotivoSinHuellaObj.get(motivoSinHuella)));
                     if (i < fingers.length() - 1) {
                         fingerprintStr.append("|");
                     }
@@ -280,5 +281,16 @@ public class NistXmlParser {
 
         }
         return json;
+    }
+
+    private static String concatenaMotivoSinHuella(Object o) {
+        //Verifica que no venga un 010,011,012
+        if(o.toString().length()==2){
+            //Si solo vienen valores de 10 para arriba se les concatena un 0 a la izquierda
+            //para que sea válido el formato de motivo de excepción, si son menores se respeta como venga el valor
+            //y se manda igual como viene
+            return Integer.parseInt(o.toString())>=10?"0"+o.toString():o.toString();
+        }
+        return o.toString();
     }
 }
